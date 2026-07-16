@@ -1,8 +1,8 @@
 # Anti-Ads
 
-> Hide page ads and in-player ad UI on **YouTube** and **Bilibili**; auto-click YouTube skip buttons when available.
+> Hide page ads and in-player ad UI on **YouTube**, **Bilibili**, and **Douban**; auto-click YouTube skip buttons when available.
 >
-> 隐藏 **YouTube** 和 **Bilibili** 的页面广告与播放器内广告 UI；YouTube 出现跳过按钮时自动点击。
+> 隐藏 **YouTube**、**Bilibili** 和 **豆瓣** 的页面广告与播放器内广告 UI；YouTube 出现跳过按钮时自动点击。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -20,6 +20,7 @@ Companion script to [AntiRecommend](https://github.com/RyanStarFox/AntiRecommend
 | ⏭️ | Auto-click YouTube skip buttons | 自动点击 YouTube 跳过广告按钮 |
 | 🚫 | Hide Bilibili promoted cards & page ads | 隐藏 Bilibili 推广卡片与页面广告 |
 | 📢 | Hide Bilibili in-player ad danmaku overlay | 隐藏 Bilibili 播放器内广告弹幕层 |
+| 🎬 | Hide Douban Dale ad slots & gray promo blocks | 隐藏豆瓣 Dale 广告位与灰色推广块 |
 | ⚡ | Inject CSS at `document-start` — no flicker | 在页面加载前注入 CSS，无闪烁 |
 | 👁️ | MutationObserver for SPA dynamic content | 监听 SPA 动态内容，持续生效 |
 
@@ -27,11 +28,15 @@ Companion script to [AntiRecommend](https://github.com/RyanStarFox/AntiRecommend
 
 ## Supported Sites / 支持站点
 
-| Site / 站点 | Pages / 页面 | YouTube Ads | Bilibili Ads |
-|---|---|---|---|
-| YouTube (Desktop) | 首页、搜索、视频页 | ✅ | — |
-| YouTube (Mobile) | 视频页 | ✅ | — |
-| Bilibili | 首页、搜索、视频、番剧 | — | ✅ |
+| Site / 站点 | Pages / 页面 | Ads |
+|---|---|---|
+| YouTube (Desktop) | 首页、搜索、视频页 | ✅ |
+| YouTube (Mobile) | 视频页 | ✅ |
+| Bilibili | 首页、搜索、视频、番剧 | ✅ |
+| Douban Movie | 首页、条目页 | ✅ |
+| Douban Book | 首页、条目页 | ✅ |
+| Douban Music | 条目页 | ✅ |
+| Douban (www) | 共享广告位 | ✅ |
 
 ---
 
@@ -53,7 +58,7 @@ git clone https://github.com/RyanStarFox/AntiAds.git
 
 1. Open your userscript manager dashboard
 2. Create a new script and paste the full contents of `anti-ads.user.js`
-3. Save and refresh YouTube / Bilibili
+3. Save and refresh YouTube / Bilibili / Douban
 
 ---
 
@@ -67,8 +72,9 @@ No configuration needed — the script runs automatically on matching pages.
 2. Hard-refresh after install or update: `Cmd+Shift+R` / `Ctrl+Shift+R`
 3. **YouTube**: ad overlays hidden; skip button clicked when shown
 4. **Bilibili**: right-side promoted cards, page ads, and activity bars hidden
+5. **Douban**: Dale slots, gray_ad buy/promo blocks, and subject banners hidden; 片单/书单/口碑榜 kept
 
-> Latest version / 当前版本: **v1.0.0**
+> Latest version / 当前版本: **v1.1.0**
 
 ---
 
