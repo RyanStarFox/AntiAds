@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Anti-Ads — Block YouTube & Bilibili Ads
+// @name         Anti-Ads — Block YouTube, Bilibili & Douban Ads
 // @namespace    https://github.com/RyanStarFox/AntiAds
-// @version      1.0.0
-// @description  Hide page ads and in-player ad UI on YouTube and Bilibili; auto-click YouTube skip buttons
+// @version      1.1.0
+// @description  Hide page ads and in-player ad UI on YouTube, Bilibili, and Douban; auto-click YouTube skip buttons
 // @author       ryanstarfox
 // @match        https://www.youtube.com/*
 // @match        https://m.youtube.com/*
@@ -10,6 +10,10 @@
 // @match        https://www.bilibili.com/*
 // @match        https://www.bilibili.com/video/*
 // @match        https://www.bilibili.com/bangumi/*
+// @match        https://movie.douban.com/*
+// @match        https://book.douban.com/*
+// @match        https://music.douban.com/*
+// @match        https://www.douban.com/*
 // @run-at       document-start
 // @grant        none
 // @license      MIT
@@ -57,6 +61,15 @@
     .bpx-player-adv-dm-wrap,
     .left-container .activity-m-v1,
     .activity-m-v1 {
+      display: none !important;
+    }
+
+    /* ===== Douban ===== */
+    [id^="dale_"],
+    div[ad-status],
+    div.gray_ad,
+    .subject-banner,
+    .extra {
       display: none !important;
     }
   `;
@@ -148,6 +161,14 @@
     hideSelector('.activity-m-v1');
   }
 
+  function hideDoubanAds() {
+    hideSelector('[id^="dale_"]');
+    hideSelector('div[ad-status]');
+    hideSelector('div.gray_ad');
+    hideSelector('.subject-banner');
+    hideSelector('.extra');
+  }
+
   function periodicTasks() {
     injectStyles();
     injectIntoShadowRoots(document);
@@ -158,6 +179,8 @@
       clickYouTubeAdControls();
     } else if (host.includes('bilibili.com')) {
       hideBilibiliAds();
+    } else if (host.includes('douban.com')) {
+      hideDoubanAds();
     }
   }
 
