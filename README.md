@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="Anti-Ads" width="280" />
+</p>
+
 # Anti-Ads
 
 > Hide page ads and in-player ad UI on **YouTube**, **Bilibili**, and **Douban**; auto-click YouTube skip buttons when available.
@@ -74,7 +78,7 @@ No configuration needed — the script runs automatically on matching pages.
 4. **Bilibili**: right-side promoted cards, page ads, and activity bars hidden
 5. **Douban**: Dale slots, gray_ad buy/promo blocks, and subject banners hidden; 片单/书单/口碑榜 kept
 
-> Latest version / 当前版本: **v1.1.0**
+> Latest version / 当前版本: **v1.1.1**
 
 ---
 

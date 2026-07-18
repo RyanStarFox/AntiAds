@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti-Ads — Block YouTube, Bilibili & Douban Ads
 // @namespace    https://github.com/RyanStarFox/AntiAds
-// @version      1.1.0
+// @version      1.1.1
 // @description  Hide page ads and in-player ad UI on YouTube, Bilibili, and Douban; auto-click YouTube skip buttons
 // @author       ryanstarfox
 // @match        https://www.youtube.com/*
@@ -50,16 +50,18 @@
     }
 
     /* ===== Bilibili ===== */
-    .right-container .video-card-ad-small,
     .video-card-ad-small,
-    .right-container .ad-report,
-    .right-container .ad-report-inner,
-    .right-container .right-bottom-banner,
-    .right-container .ad-floor-exp,
-    .right-container .ad-floor-cover,
-    .right-container .slide-ad-exp,
+    .video-card-ad-small-inner,
+    .ad-report,
+    .ad-report-inner,
+    .strip-ad,
+    .left-banner,
+    .right-bottom-banner,
+    .ad-floor-exp,
+    .ad-floor-cover,
+    .slide-ad-exp,
+    #slide_ad,
     .bpx-player-adv-dm-wrap,
-    .left-container .activity-m-v1,
     .activity-m-v1 {
       display: none !important;
     }
@@ -75,27 +77,35 @@
   `;
 
   function injectStyles() {
-    if (document.getElementById(STYLE_ID)) return;
-    const style = document.createElement('style');
-    style.id = STYLE_ID;
-    style.textContent = CSS;
-    (document.head || document.documentElement).appendChild(style);
+    let style = document.getElementById(STYLE_ID);
+    if (!style) {
+      style = document.createElement('style');
+      style.id = STYLE_ID;
+      style.textContent = CSS;
+    }
+    // Keep stylesheet last so later site CSS cannot override with equal specificity
+    const parent = document.head || document.documentElement;
+    if (style.parentNode !== parent || parent.lastChild !== style) {
+      parent.appendChild(style);
+    }
   }
 
   function injectIntoShadowRoots(root) {
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
-    let node;
-    while ((node = walker.nextNode())) {
-      if (node.shadowRoot) {
-        if (!node.shadowRoot.getElementById(STYLE_ID)) {
-          const style = document.createElement('style');
-          style.id = STYLE_ID;
-          style.textContent = CSS;
-          node.shadowRoot.appendChild(style);
+    try {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+      let node;
+      while ((node = walker.nextNode())) {
+        if (node.shadowRoot) {
+          if (!node.shadowRoot.getElementById(STYLE_ID)) {
+            const style = document.createElement('style');
+            style.id = STYLE_ID;
+            style.textContent = CSS;
+            node.shadowRoot.appendChild(style);
+          }
+          injectIntoShadowRoots(node.shadowRoot);
         }
-        injectIntoShadowRoots(node.shadowRoot);
       }
-    }
+    } catch (_) { /* ignore */ }
   }
 
   function hideSelector(sel) {
@@ -148,16 +158,18 @@
   }
 
   function hideBilibiliAds() {
-    hideSelector('.right-container .video-card-ad-small');
     hideSelector('.video-card-ad-small');
-    hideSelector('.right-container .ad-report');
-    hideSelector('.right-container .ad-report-inner');
-    hideSelector('.right-container .right-bottom-banner');
-    hideSelector('.right-container .ad-floor-exp');
-    hideSelector('.right-container .ad-floor-cover');
-    hideSelector('.right-container .slide-ad-exp');
+    hideSelector('.video-card-ad-small-inner');
+    hideSelector('.ad-report');
+    hideSelector('.ad-report-inner');
+    hideSelector('.strip-ad');
+    hideSelector('.left-banner');
+    hideSelector('.right-bottom-banner');
+    hideSelector('.ad-floor-exp');
+    hideSelector('.ad-floor-cover');
+    hideSelector('.slide-ad-exp');
+    hideSelector('#slide_ad');
     hideSelector('.bpx-player-adv-dm-wrap');
-    hideSelector('.left-container .activity-m-v1');
     hideSelector('.activity-m-v1');
   }
 
@@ -169,10 +181,7 @@
     hideSelector('.extra');
   }
 
-  function periodicTasks() {
-    injectStyles();
-    injectIntoShadowRoots(document);
-
+  function hidePageAds() {
     const host = location.hostname;
     if (host.includes('youtube.com')) {
       hideYouTubeAds();
@@ -184,6 +193,13 @@
     }
   }
 
+  function periodicTasks() {
+    injectStyles();
+    // Hide ads before the expensive shadow walk so a walker error cannot skip hiding
+    hidePageAds();
+    injectIntoShadowRoots(document);
+  }
+
   injectStyles();
 
   if (document.readyState === 'loading') {
@@ -192,7 +208,14 @@
     periodicTasks();
   }
 
-  const observer = new MutationObserver(() => periodicTasks());
+  let mutationTimer = 0;
+  const observer = new MutationObserver(() => {
+    if (mutationTimer) return;
+    mutationTimer = setTimeout(() => {
+      mutationTimer = 0;
+      periodicTasks();
+    }, 200);
+  });
   observer.observe(document.documentElement, { childList: true, subtree: true });
 
   setInterval(periodicTasks, 2000);
