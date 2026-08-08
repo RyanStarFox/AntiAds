@@ -4,9 +4,9 @@
 
 # Anti-Ads
 
-> Hide page ads and in-player ad UI on **YouTube**, **Bilibili**, and **Douban**; auto-click YouTube skip buttons when available.
+> Hide page ads and in-player ad UI on **Bilibili** and **Douban**.
 >
-> 隐藏 **YouTube**、**Bilibili** 和 **豆瓣** 的页面广告与播放器内广告 UI；YouTube 出现跳过按钮时自动点击。
+> 隐藏 **Bilibili** 和 **豆瓣** 的页面广告与播放器内广告 UI。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -20,8 +20,6 @@ Companion script to [AntiRecommend](https://github.com/RyanStarFox/AntiRecommend
 
 | | English | 中文 |
 |---|---|---|
-| 🧹 | Hide YouTube page & in-player ad UI | 隐藏 YouTube 页面与播放器内广告 UI |
-| ⏭️ | Auto-click YouTube skip buttons | 自动点击 YouTube 跳过广告按钮 |
 | 🚫 | Hide Bilibili promoted cards & page ads | 隐藏 Bilibili 推广卡片与页面广告 |
 | 📢 | Hide Bilibili in-player ad danmaku overlay | 隐藏 Bilibili 播放器内广告弹幕层 |
 | 🎬 | Hide Douban Dale ad slots & gray promo blocks | 隐藏豆瓣 Dale 广告位与灰色推广块 |
@@ -34,13 +32,15 @@ Companion script to [AntiRecommend](https://github.com/RyanStarFox/AntiRecommend
 
 | Site / 站点 | Pages / 页面 | Ads |
 |---|---|---|
-| YouTube (Desktop) | 首页、搜索、视频页 | ✅ |
-| YouTube (Mobile) | 视频页 | ✅ |
 | Bilibili | 首页、搜索、视频、番剧 | ✅ |
 | Douban Movie | 首页、条目页 | ✅ |
 | Douban Book | 首页、条目页 | ✅ |
 | Douban Music | 条目页 | ✅ |
 | Douban (www) | 共享广告位 | ✅ |
+
+YouTube support was removed in v1.2.0 — YouTube detects ad-blocking UI changes and may block playback.
+
+YouTube 支持已在 v1.2.0 移除——官方会检测广告拦截并可能限制播放。
 
 ---
 
@@ -62,7 +62,7 @@ git clone https://github.com/RyanStarFox/AntiAds.git
 
 1. Open your userscript manager dashboard
 2. Create a new script and paste the full contents of `anti-ads.user.js`
-3. Save and refresh YouTube / Bilibili / Douban
+3. Save and refresh Bilibili / Douban
 
 ---
 
@@ -74,22 +74,21 @@ No configuration needed — the script runs automatically on matching pages.
 
 1. Confirm the script is **Enabled / 已启用** in your manager
 2. Hard-refresh after install or update: `Cmd+Shift+R` / `Ctrl+Shift+R`
-3. **YouTube**: ad overlays hidden; skip button clicked when shown
-4. **Bilibili**: right-side promoted cards, page ads, and activity bars hidden
-5. **Douban**: Dale slots, gray_ad buy/promo blocks, and subject banners hidden; 片单/书单/口碑榜 kept
+3. **Bilibili**: right-side promoted cards, page ads, and activity bars hidden
+4. **Douban**: Dale slots, gray_ad buy/promo blocks, and subject banners hidden; 片单/书单/口碑榜 kept
 
-> Latest version / 当前版本: **v1.1.1**
+> Latest version / 当前版本: **v1.2.0**
 
 ---
 
 ## FAQ / 常见问题
 
-**Q: Can it skip all YouTube video ads?**
-**问：能跳过所有 YouTube 视频广告吗？**
+**Q: Why is YouTube no longer supported?**
+**问：为什么不再支持 YouTube？**
 
-The script uses a conservative approach: it hides ad UI and auto-clicks the official **Skip Ad** button when available. Non-skippable ads cannot be bypassed without riskier techniques that may break playback.
+YouTube shows an ad-blocker warning and may interrupt playback when it detects hidden ad UI. AntiAds no longer matches or modifies YouTube pages.
 
-采用保守策略：隐藏广告 UI 并在出现官方「跳过广告」按钮时自动点击。不可跳过的广告无法用低风险方式绕过。
+YouTube 检测到广告 UI 被隐藏时会提示广告拦截器并可能中断播放，因此脚本不再匹配或修改 YouTube 页面。
 
 **Q: Do I still need AntiRecommend?**
 **问：还需要安装 AntiRecommend 吗？**

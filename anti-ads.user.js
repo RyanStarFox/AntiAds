@@ -1,11 +1,9 @@
 // ==UserScript==
-// @name         Anti-Ads — Block YouTube, Bilibili & Douban Ads
+// @name         Anti-Ads — Block Bilibili & Douban Ads
 // @namespace    https://github.com/RyanStarFox/AntiAds
-// @version      1.1.1
-// @description  Hide page ads and in-player ad UI on YouTube, Bilibili, and Douban; auto-click YouTube skip buttons
+// @version      1.2.0
+// @description  Hide page ads and in-player ad UI on Bilibili and Douban
 // @author       ryanstarfox
-// @match        https://www.youtube.com/*
-// @match        https://m.youtube.com/*
 // @match        https://search.bilibili.com/*
 // @match        https://www.bilibili.com/*
 // @match        https://www.bilibili.com/video/*
@@ -25,30 +23,6 @@
   const STYLE_ID = 'anti-ads-styles';
 
   const CSS = `
-    /* ===== YouTube ===== */
-    ytd-ad-slot-renderer,
-    ytd-display-ad-renderer,
-    ytd-promoted-sparkles-web-renderer,
-    ytd-promoted-video-renderer,
-    ytd-in-feed-ad-layout-renderer,
-    ytd-rich-item-renderer:has(ytd-ad-slot-renderer),
-    ytd-rich-item-renderer:has(ytd-display-ad-renderer),
-    ytd-rich-item-renderer:has(ytd-promoted-sparkles-web-renderer),
-    ytd-compact-promoted-video-renderer,
-    ytd-action-companion-ad-renderer,
-    ytd-companion-slot-renderer,
-    ytd-player-legacy-desktop-watch-ads-renderer,
-    .ytd-ad-slot-renderer,
-    .ytp-ad-overlay-container,
-    .ytp-ad-overlay-slot,
-    .ytp-ad-player-overlay,
-    .ytp-ad-text-overlay,
-    .ytp-ad-image-overlay,
-    .ytp-ad-action-interstitial,
-    .ytp-ad-survey {
-      display: none !important;
-    }
-
     /* ===== Bilibili ===== */
     .video-card-ad-small,
     .video-card-ad-small-inner,
@@ -116,47 +90,6 @@
     } catch (_) { /* ignore */ }
   }
 
-  function hideYouTubeAds() {
-    hideSelector('ytd-ad-slot-renderer');
-    hideSelector('ytd-display-ad-renderer');
-    hideSelector('ytd-promoted-sparkles-web-renderer');
-    hideSelector('ytd-promoted-video-renderer');
-    hideSelector('ytd-in-feed-ad-layout-renderer');
-    hideSelector('ytd-compact-promoted-video-renderer');
-    hideSelector('ytd-action-companion-ad-renderer');
-    hideSelector('ytd-companion-slot-renderer');
-    hideSelector('ytd-player-legacy-desktop-watch-ads-renderer');
-    hideSelector('.ytp-ad-overlay-container');
-    hideSelector('.ytp-ad-overlay-slot');
-    hideSelector('.ytp-ad-player-overlay');
-    hideSelector('.ytp-ad-text-overlay');
-    hideSelector('.ytp-ad-image-overlay');
-    hideSelector('.ytp-ad-action-interstitial');
-    hideSelector('.ytp-ad-survey');
-  }
-
-  function clickYouTubeAdControls() {
-    const selectors = [
-      'button.ytp-ad-skip-button',
-      'button.ytp-ad-skip-button-modern',
-      'button.ytp-skip-ad-button',
-      '.ytp-ad-skip-button',
-      '.ytp-ad-skip-button-modern',
-      '.ytp-skip-ad-button',
-      'button.ytp-ad-overlay-close-button',
-      '.ytp-ad-overlay-close-button',
-      '.ytp-ad-close-button',
-      '.ytp-ad-close-button-modern'
-    ];
-    for (const sel of selectors) {
-      try {
-        document.querySelectorAll(sel).forEach(el => {
-          if (!el.disabled) el.click();
-        });
-      } catch (_) { /* ignore */ }
-    }
-  }
-
   function hideBilibiliAds() {
     hideSelector('.video-card-ad-small');
     hideSelector('.video-card-ad-small-inner');
@@ -183,10 +116,7 @@
 
   function hidePageAds() {
     const host = location.hostname;
-    if (host.includes('youtube.com')) {
-      hideYouTubeAds();
-      clickYouTubeAdControls();
-    } else if (host.includes('bilibili.com')) {
+    if (host.includes('bilibili.com')) {
       hideBilibiliAds();
     } else if (host.includes('douban.com')) {
       hideDoubanAds();
