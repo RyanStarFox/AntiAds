@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Anti-Ads — Block Bilibili & Douban Ads
+// @name         Anti-Ads — Block Bilibili, Douban & MacRumors Ads
 // @namespace    https://github.com/RyanStarFox/AntiAds
-// @version      1.2.0
-// @description  Hide page ads and in-player ad UI on Bilibili and Douban
+// @version      1.3.0
+// @description  Hide page ads and in-player ad UI on Bilibili, Douban, and MacRumors
 // @author       ryanstarfox
 // @match        https://search.bilibili.com/*
 // @match        https://www.bilibili.com/*
@@ -12,6 +12,7 @@
 // @match        https://book.douban.com/*
 // @match        https://music.douban.com/*
 // @match        https://www.douban.com/*
+// @match        https://www.macrumors.com/*
 // @run-at       document-start
 // @grant        none
 // @license      MIT
@@ -46,6 +47,15 @@
     div.gray_ad,
     .subject-banner,
     .extra {
+      display: none !important;
+    }
+
+    /* ===== MacRumors ===== */
+    .adthrive-ad,
+    [id^="AdThrive_"],
+    #taboola-skimlinks,
+    .trc_related_container,
+    .tbl-trecs-container {
       display: none !important;
     }
   `;
@@ -114,12 +124,22 @@
     hideSelector('.extra');
   }
 
+  function hideMacRumorsAds() {
+    hideSelector('.adthrive-ad');
+    hideSelector('[id^="AdThrive_"]');
+    hideSelector('#taboola-skimlinks');
+    hideSelector('.trc_related_container');
+    hideSelector('.tbl-trecs-container');
+  }
+
   function hidePageAds() {
     const host = location.hostname;
     if (host.includes('bilibili.com')) {
       hideBilibiliAds();
     } else if (host.includes('douban.com')) {
       hideDoubanAds();
+    } else if (host.includes('macrumors.com')) {
+      hideMacRumorsAds();
     }
   }
 
