@@ -4,9 +4,9 @@
 
 # Anti-Ads
 
-> Hide page ads and in-player ad UI on **Bilibili** and **Douban**.
+> Hide page ads and in-player ad UI on **Bilibili**, **Douban**, and **MacRumors**.
 >
-> 隐藏 **Bilibili** 和 **豆瓣** 的页面广告与播放器内广告 UI。
+> 隐藏 **Bilibili**、**豆瓣** 和 **MacRumors** 的页面广告与播放器内广告 UI。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -23,6 +23,7 @@ Companion script to [AntiRecommend](https://github.com/RyanStarFox/AntiRecommend
 | 🚫 | Hide Bilibili promoted cards & page ads | 隐藏 Bilibili 推广卡片与页面广告 |
 | 📢 | Hide Bilibili in-player ad danmaku overlay | 隐藏 Bilibili 播放器内广告弹幕层 |
 | 🎬 | Hide Douban Dale ad slots & gray promo blocks | 隐藏豆瓣 Dale 广告位与灰色推广块 |
+| 📰 | Hide MacRumors AdThrive slots & Taboola widgets | 隐藏 MacRumors AdThrive 广告位与 Taboola 推荐块 |
 | ⚡ | Inject CSS at `document-start` — no flicker | 在页面加载前注入 CSS，无闪烁 |
 | 👁️ | MutationObserver for SPA dynamic content | 监听 SPA 动态内容，持续生效 |
 
@@ -37,6 +38,7 @@ Companion script to [AntiRecommend](https://github.com/RyanStarFox/AntiRecommend
 | Douban Book | 首页、条目页 | ✅ |
 | Douban Music | 条目页 | ✅ |
 | Douban (www) | 共享广告位 | ✅ |
+| MacRumors | 首页、文章、全站路径 | ✅ |
 
 YouTube support was removed in v1.2.0 — YouTube detects ad-blocking UI changes and may block playback.
 
@@ -62,7 +64,7 @@ git clone https://github.com/RyanStarFox/AntiAds.git
 
 1. Open your userscript manager dashboard
 2. Create a new script and paste the full contents of `anti-ads.user.js`
-3. Save and refresh Bilibili / Douban
+3. Save and refresh Bilibili / Douban / MacRumors
 
 ---
 
@@ -76,8 +78,9 @@ No configuration needed — the script runs automatically on matching pages.
 2. Hard-refresh after install or update: `Cmd+Shift+R` / `Ctrl+Shift+R`
 3. **Bilibili**: right-side promoted cards, page ads, and activity bars hidden
 4. **Douban**: Dale slots, gray_ad buy/promo blocks, and subject banners hidden; 片单/书单/口碑榜 kept
+5. **MacRumors**: AdThrive header / in-content / sticky footer slots and Taboola widgets hidden; articles, comments, forums, CCPA privacy UI kept
 
-> Latest version / 当前版本: **v1.2.0**
+> Latest version / 当前版本: **v1.3.0**
 
 ---
 
