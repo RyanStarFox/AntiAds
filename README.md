@@ -87,7 +87,7 @@ No configuration needed — the script runs automatically on matching pages.
 5. **MacRumors**: AdThrive header / in-content / sticky footer slots and Taboola widgets hidden; articles, comments, forums, CCPA privacy UI kept
 6. **Greasy Fork**: AdSense slots (incl. fixed overlay) and EthicalAds list/detail widgets hidden; script lists, detail pages, forums, privacy UI kept
 
-> Latest version / 当前版本: **v1.4.1**
+> Latest version / 当前版本: **v1.4.2**
 
 ---
 

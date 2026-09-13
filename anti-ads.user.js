@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti-Ads — Block Bilibili, Douban and other common websites
 // @namespace    https://github.com/RyanStarFox/AntiAds
-// @version      1.4.1
+// @version      1.4.2
 // @description  Hide page ads and in-player ad UI on Bilibili, Douban, and other common websites
 // @author       ryanstarfox
 // @match        https://search.bilibili.com/*
@@ -74,40 +74,17 @@
   `;
 
   function injectStyles() {
-    let style = document.getElementById(STYLE_ID);
-    if (!style) {
-      style = document.createElement('style');
-      style.id = STYLE_ID;
-      style.textContent = CSS;
-    }
-    // Keep stylesheet last so later site CSS cannot override with equal specificity
-    const parent = document.head || document.documentElement;
-    if (style.parentNode !== parent || parent.lastChild !== style) {
-      parent.appendChild(style);
-    }
-  }
-
-  function injectIntoShadowRoots(root) {
-    try {
-      const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
-      let node;
-      while ((node = walker.nextNode())) {
-        if (node.shadowRoot) {
-          if (!node.shadowRoot.getElementById(STYLE_ID)) {
-            const style = document.createElement('style');
-            style.id = STYLE_ID;
-            style.textContent = CSS;
-            node.shadowRoot.appendChild(style);
-          }
-          injectIntoShadowRoots(node.shadowRoot);
-        }
-      }
-    } catch (_) { /* ignore */ }
+    if (document.getElementById(STYLE_ID)) return;
+    const style = document.createElement('style');
+    style.id = STYLE_ID;
+    style.textContent = CSS;
+    (document.head || document.documentElement).appendChild(style);
   }
 
   function hideSelector(sel) {
     try {
       document.querySelectorAll(sel).forEach(el => {
+        if (el.style.display === 'none') return;
         el.style.setProperty('display', 'none', 'important');
       });
     } catch (_) { /* ignore */ }
@@ -169,30 +146,84 @@
     }
   }
 
-  function periodicTasks() {
-    injectStyles();
-    // Hide ads before the expensive shadow walk so a walker error cannot skip hiding
-    hidePageAds();
-    injectIntoShadowRoots(document);
+  const processedShadows = new WeakSet();
+
+  function injectIntoNewShadowRoots(root) {
+    try {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+      let node;
+      while ((node = walker.nextNode())) {
+        if (!node.shadowRoot || processedShadows.has(node.shadowRoot)) continue;
+        processedShadows.add(node.shadowRoot);
+        if (!node.shadowRoot.getElementById(STYLE_ID)) {
+          const style = document.createElement('style');
+          style.id = STYLE_ID;
+          style.textContent = CSS;
+          node.shadowRoot.appendChild(style);
+        }
+        injectIntoNewShadowRoots(node.shadowRoot);
+      }
+    } catch (_) { /* ignore */ }
   }
 
-  injectStyles();
+  function hostNeedsShadowWalk() {
+    const host = location.hostname;
+    return host.includes('bilibili.com') || host.includes('douban.com');
+  }
+
+  let applying = false;
+
+  function hideVisibleAds() {
+    if (document.hidden) return;
+    applying = true;
+    try {
+      injectStyles();
+      hidePageAds();
+    } finally {
+      applying = false;
+    }
+  }
+
+  function sweepShadows() {
+    if (document.hidden || !hostNeedsShadowWalk()) return;
+    applying = true;
+    try {
+      injectIntoNewShadowRoots(document);
+    } finally {
+      applying = false;
+    }
+  }
+
+  hideVisibleAds();
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', periodicTasks);
+    document.addEventListener('DOMContentLoaded', () => {
+      hideVisibleAds();
+      sweepShadows();
+    });
   } else {
-    periodicTasks();
+    sweepShadows();
   }
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      hideVisibleAds();
+      sweepShadows();
+    }
+  });
 
   let mutationTimer = 0;
   const observer = new MutationObserver(() => {
-    if (mutationTimer) return;
+    if (applying || document.hidden || mutationTimer) return;
     mutationTimer = setTimeout(() => {
       mutationTimer = 0;
-      periodicTasks();
-    }, 200);
+      hideVisibleAds();
+    }, 400);
   });
   observer.observe(document.documentElement, { childList: true, subtree: true });
 
-  setInterval(periodicTasks, 2000);
+  setInterval(() => {
+    hideVisibleAds();
+    sweepShadows();
+  }, 4000);
 })();
