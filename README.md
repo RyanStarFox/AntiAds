@@ -4,15 +4,19 @@
 
 # Anti-Ads
 
-> Hide page ads and in-player ad UI on **Bilibili**, **Douban**, **MacRumors**, and **Greasy Fork**.
+> Hide page ads and in-player ad UI on **Bilibili**, **Douban**, and other common websites.
 >
-> 隐藏 **Bilibili**、**豆瓣**、**MacRumors** 和 **Greasy Fork** 的页面广告与播放器内广告 UI。
+> 隐藏 **Bilibili**、**豆瓣** 及其他常见网站的页面广告与播放器内广告 UI。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Companion script to [AntiRecommend](https://github.com/RyanStarFox/AntiRecommend) — install both for a fully cleaned video experience.
 
 与 [AntiRecommend](https://github.com/RyanStarFox/AntiRecommend) 配套使用，同时安装可获得完整的去推荐 + 去广告体验。
+
+Want another site supported? Open a request in [Discussions](https://github.com/RyanStarFox/AntiAds/discussions).
+
+还想支持其他网站？欢迎在 [Discussions](https://github.com/RyanStarFox/AntiAds/discussions) 里提出。
 
 ---
 
@@ -66,7 +70,7 @@ git clone https://github.com/RyanStarFox/AntiAds.git
 
 1. Open your userscript manager dashboard
 2. Create a new script and paste the full contents of `anti-ads.user.js`
-3. Save and refresh Bilibili / Douban / MacRumors / Greasy Fork
+3. Save and refresh supported sites (Bilibili, Douban, and other common websites)
 
 ---
 
@@ -81,9 +85,9 @@ No configuration needed — the script runs automatically on matching pages.
 3. **Bilibili**: right-side promoted cards, page ads, and activity bars hidden
 4. **Douban**: Dale slots, gray_ad buy/promo blocks, and subject banners hidden; 片单/书单/口碑榜 kept
 5. **MacRumors**: AdThrive header / in-content / sticky footer slots and Taboola widgets hidden; articles, comments, forums, CCPA privacy UI kept
-6. **Greasy Fork**: AdSense slots (incl. fixed overlay) and EthicalAds list widgets hidden; script lists, detail pages, forums, privacy UI kept
+6. **Greasy Fork**: AdSense slots (incl. fixed overlay) and EthicalAds list/detail widgets hidden; script lists, detail pages, forums, privacy UI kept
 
-> Latest version / 当前版本: **v1.4.0**
+> Latest version / 当前版本: **v1.4.1**
 
 ---
 

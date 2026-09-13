@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Anti-Ads — Block Bilibili, Douban, MacRumors & Greasy Fork Ads
+// @name         Anti-Ads — Block Bilibili, Douban and other common websites
 // @namespace    https://github.com/RyanStarFox/AntiAds
-// @version      1.4.0
-// @description  Hide page ads and in-player ad UI on Bilibili, Douban, MacRumors, and Greasy Fork
+// @version      1.4.1
+// @description  Hide page ads and in-player ad UI on Bilibili, Douban, and other common websites
 // @author       ryanstarfox
 // @match        https://search.bilibili.com/*
 // @match        https://www.bilibili.com/*
@@ -62,7 +62,9 @@
 
     /* ===== Greasy Fork ===== */
     .ad.ad-ga,
+    .ad.ad-ea,
     #home-ad,
+    #script-show-info-ad,
     .ad-content,
     ins.adsbygoogle,
     .ethical-ads,
@@ -145,7 +147,9 @@
 
   function hideGreasyForkAds() {
     hideSelector('.ad.ad-ga');
+    hideSelector('.ad.ad-ea');
     hideSelector('#home-ad');
+    hideSelector('#script-show-info-ad');
     hideSelector('.ad-content');
     hideSelector('ins.adsbygoogle');
     hideSelector('.ethical-ads');
