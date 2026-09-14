@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti-Ads — Block Bilibili, Douban and other common websites
 // @namespace    https://github.com/RyanStarFox/AntiAds
-// @version      1.4.2
+// @version      1.4.3
 // @description  Hide page ads and in-player ad UI on Bilibili, Douban, and other common websites
 // @author       ryanstarfox
 // @match        https://search.bilibili.com/*
@@ -13,6 +13,7 @@
 // @match        https://music.douban.com/*
 // @match        https://www.douban.com/*
 // @match        https://www.macrumors.com/*
+// @match        https://forums.macrumors.com/*
 // @match        https://greasyfork.org/*
 // @run-at       document-start
 // @grant        none
@@ -56,7 +57,8 @@
     [id^="AdThrive_"],
     #taboola-skimlinks,
     .trc_related_container,
-    .tbl-trecs-container {
+    .tbl-trecs-container,
+    #tertiary:has(> .adthrive-ad) {
       display: none !important;
     }
 
@@ -120,6 +122,7 @@
     hideSelector('#taboola-skimlinks');
     hideSelector('.trc_related_container');
     hideSelector('.tbl-trecs-container');
+    hideSelector('#tertiary:has(> .adthrive-ad)');
   }
 
   function hideGreasyForkAds() {

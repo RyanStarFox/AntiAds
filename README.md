@@ -43,7 +43,7 @@ Want another site supported? Open a request in [Discussions](https://github.com/
 | Douban Book | 首页、条目页 | ✅ |
 | Douban Music | 条目页 | ✅ |
 | Douban (www) | 共享广告位 | ✅ |
-| MacRumors | 首页、文章、全站路径 | ✅ |
+| MacRumors | 首页、文章、论坛（含 `forums.macrumors.com`） | ✅ |
 | Greasy Fork | 首页、脚本列表、详情、全站路径 | ✅ |
 
 YouTube support was removed in v1.2.0 — YouTube detects ad-blocking UI changes and may block playback.
@@ -84,10 +84,10 @@ No configuration needed — the script runs automatically on matching pages.
 2. Hard-refresh after install or update: `Cmd+Shift+R` / `Ctrl+Shift+R`
 3. **Bilibili**: right-side promoted cards, page ads, and activity bars hidden
 4. **Douban**: Dale slots, gray_ad buy/promo blocks, and subject banners hidden; 片单/书单/口碑榜 kept
-5. **MacRumors**: AdThrive header / in-content / sticky footer slots and Taboola widgets hidden; articles, comments, forums, CCPA privacy UI kept
+5. **MacRumors**: AdThrive header / in-content / sticky footer slots and Taboola widgets hidden on `www` and `forums`; articles, comments, threads, CCPA privacy UI kept
 6. **Greasy Fork**: AdSense slots (incl. fixed overlay) and EthicalAds list/detail widgets hidden; script lists, detail pages, forums, privacy UI kept
 
-> Latest version / 当前版本: **v1.4.2**
+> Latest version / 当前版本: **v1.4.3**
 
 ---
 
