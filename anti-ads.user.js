@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti-Ads — Block Bilibili, Douban and other common websites
 // @namespace    https://github.com/RyanStarFox/AntiAds
-// @version      1.4.3
+// @version      1.5.0
 // @description  Hide page ads and in-player ad UI on Bilibili, Douban, and other common websites
 // @author       ryanstarfox
 // @match        https://search.bilibili.com/*
@@ -14,6 +14,8 @@
 // @match        https://www.douban.com/*
 // @match        https://www.macrumors.com/*
 // @match        https://forums.macrumors.com/*
+// @match        https://www.zhihu.com/*
+// @match        https://zhuanlan.zhihu.com/*
 // @match        https://greasyfork.org/*
 // @run-at       document-start
 // @grant        none
@@ -71,6 +73,31 @@
     ins.adsbygoogle,
     .ethical-ads,
     .ad-entry {
+      display: none !important;
+    }
+
+    /* ===== Zhihu ===== */
+    .Pc-word,
+    .Pc-word-new,
+    .Pc-word-card,
+    .Pc-feedAd-container,
+    .Pc-card.Card,
+    .TopstoryItem--advertCard,
+    .AdvertImg,
+    .Banner-link,
+    .Banner-adTag,
+    .Card.Banner,
+    .Business-Card-PcRightBanner-link,
+    .Pc-Business-Card-PcTopFeedBanner,
+    .GoodsRecommendCard,
+    .RichText-Ecommerce,
+    .RichText-ADLinkCardContainer,
+    .RichText-MCNLinkCardContainer,
+    .ecommerce-ad-box,
+    .LinkCard-ecommerceLoadingCard,
+    .QuestionAdBanner,
+    .Question-sideColumnAdContainer,
+    div[data-type="ad"] {
       display: none !important;
     }
   `;
@@ -136,6 +163,30 @@
     hideSelector('.ad-entry');
   }
 
+  function hideZhihuAds() {
+    hideSelector('.Pc-word');
+    hideSelector('.Pc-word-new');
+    hideSelector('.Pc-word-card');
+    hideSelector('.Pc-feedAd-container');
+    hideSelector('.Pc-card.Card');
+    hideSelector('.TopstoryItem--advertCard');
+    hideSelector('.AdvertImg');
+    hideSelector('.Banner-link');
+    hideSelector('.Banner-adTag');
+    hideSelector('.Card.Banner');
+    hideSelector('.Business-Card-PcRightBanner-link');
+    hideSelector('.Pc-Business-Card-PcTopFeedBanner');
+    hideSelector('.GoodsRecommendCard');
+    hideSelector('.RichText-Ecommerce');
+    hideSelector('.RichText-ADLinkCardContainer');
+    hideSelector('.RichText-MCNLinkCardContainer');
+    hideSelector('.ecommerce-ad-box');
+    hideSelector('.LinkCard-ecommerceLoadingCard');
+    hideSelector('.QuestionAdBanner');
+    hideSelector('.Question-sideColumnAdContainer');
+    hideSelector('div[data-type="ad"]');
+  }
+
   function hidePageAds() {
     const host = location.hostname;
     if (host.includes('bilibili.com')) {
@@ -146,6 +197,8 @@
       hideMacRumorsAds();
     } else if (host.includes('greasyfork.org')) {
       hideGreasyForkAds();
+    } else if (host.includes('zhihu.com')) {
+      hideZhihuAds();
     }
   }
 
