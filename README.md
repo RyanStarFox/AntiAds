@@ -29,7 +29,7 @@ Want another site supported? Open a request in [Discussions](https://github.com/
 | 🎬 | Hide Douban Dale ad slots & gray promo blocks | 隐藏豆瓣 Dale 广告位与灰色推广块 |
 | 📰 | Hide MacRumors AdThrive slots & Taboola widgets | 隐藏 MacRumors AdThrive 广告位与 Taboola 推荐块 |
 | 🛠️ | Hide Greasy Fork AdSense & EthicalAds | 隐藏 Greasy Fork AdSense 与 EthicalAds |
-| 🧠 | Hide Zhihu native ads, sidebar banners & hot search | 隐藏知乎正文广告、侧栏 Banner 与「大家都在搜」 |
+| 🧠 | Hide Zhihu native ads & sidebar banners | 隐藏知乎正文「的广告」卡与侧栏 Banner |
 | ⚡ | Inject CSS at `document-start` — no flicker | 在页面加载前注入 CSS，无闪烁 |
 | 👁️ | MutationObserver for SPA dynamic content | 监听 SPA 动态内容，持续生效 |
 
@@ -88,9 +88,9 @@ No configuration needed — the script runs automatically on matching pages.
 4. **Douban**: Dale slots, gray_ad buy/promo blocks, and subject banners hidden; 片单/书单/口碑榜 kept
 5. **MacRumors**: AdThrive header / in-content / sticky footer slots and Taboola widgets hidden on `www` and `forums`; articles, comments, threads, CCPA privacy UI kept
 6. **Greasy Fork**: AdSense slots (incl. fixed overlay) and EthicalAds list/detail widgets hidden; script lists, detail pages, forums, privacy UI kept
-7. **Zhihu**: in-article branded ads (`Pc-word`), feed advert cards, sidebar banners, and `大家都在搜` (`HotSearchCard`) hidden; article text, comments, and nav kept
+7. **Zhihu**: in-article branded ads (`Pc-word`), feed advert cards, and sidebar banners hidden; article text, comments, 大家都在搜, and nav kept
 
-> Latest version / 当前版本: **v1.5.1**
+> Latest version / 当前版本: **v1.5.0**
 
 ---
 

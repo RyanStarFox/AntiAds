@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti-Ads — Block Bilibili, Douban and other common websites
 // @namespace    https://github.com/RyanStarFox/AntiAds
-// @version      1.5.1
+// @version      1.5.0
 // @description  Hide page ads and in-player ad UI on Bilibili, Douban, and other common websites
 // @author       ryanstarfox
 // @match        https://search.bilibili.com/*
@@ -97,7 +97,6 @@
     .LinkCard-ecommerceLoadingCard,
     .QuestionAdBanner,
     .Question-sideColumnAdContainer,
-    .HotSearchCard,
     div[data-type="ad"] {
       display: none !important;
     }
@@ -185,7 +184,6 @@
     hideSelector('.LinkCard-ecommerceLoadingCard');
     hideSelector('.QuestionAdBanner');
     hideSelector('.Question-sideColumnAdContainer');
-    hideSelector('.HotSearchCard');
     hideSelector('div[data-type="ad"]');
   }
 
